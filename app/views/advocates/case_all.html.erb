@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Case ID </th>              
+    <th>State </th>              
+    <th>Advocate ID </th>  
+    <th>Action(Reject) </th>  
+
+  </tr>
+ <% @cases.each do |adv_case| %>
+  <tr>
+    <td><%= adv_case.id%></td>         
+    <td><%= adv_case.state.name%></td>         
+    <td><%= adv_case.advocate.user_id%></td>  
+    <% if adv_case.is_active %>
+      <td><%= link_to "Reject", reject_case_path(:id => adv_case.id), method: :put %></td>
+    <% else %>
+      <td>Rejected</td>
+    <%end%>
+  </tr>
+  <% end %>
+ </table>

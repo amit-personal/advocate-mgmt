@@ -1,0 +1,32 @@
+<div class="container">
+	<!-- <div class="heading">
+		<h1>Welcome to the Advocate Managenement System</h1>
+	</div> -->
+	<div class="options">
+		<div class="section-first">
+			<%= button_to "Add Senior Advocate", new_senior_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+			<%= button_to "Add State", new_state_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+			<%= button_to "Add Case", new_case_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+			<%= button_to "All Case", case_all_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+		</div>
+		<div class="section-second">
+			<%= button_to "Add Junior Advocate", new_junior_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+			<%#= button_to "Add State For Junior", new_senior_path, :id => "open-contacts-dialog-btn", :class => "btn btn-primary", :method => :get %>
+		</div>
+	</div>
+
+	<table>
+	  <tr>
+	    <th>Advocate</th>              
+	    <th>Practicing State </th>              
+
+	  </tr>
+	 <% @advocates.each do |advocate| %>
+	  <tr>
+	    <td><%= advocate.user_id%></td>         
+	    <td><%= advocate.states.pluck(:name).uniq.join(',')%></td>         
+	  </tr>
+	  <% end %>
+	 </table>
+</div>
+

@@ -1,0 +1,16 @@
+<%= form_for @user, :url => { :controller => "advocates", :action => "junior_creation" } do |f| %>
+  <% if @user.errors.any? %>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+  <label>Advocate ID</label>
+  <%= f.select :senior_advocate, @all_seniors.collect { |advocate| [ advocate.user_id, advocate.user_id] } %>
+
+  <label>Junior Advocate ID</label>
+  <%= f.text_field :id %>
+  <%= f.submit "Submit" %>
+<% end %>
+
