@@ -1,17 +1,18 @@
-<%= form_for @case, :url => { :controller => "advocates", :action => "case_creation" } do |f| %>
-  <% if @case.errors.any? %>
-    <ul>
-    <% @case.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+<div class="container">
+  <%= form_for @case, :url => { :controller => "advocates", :action => "case_creation" } do |f| %>
+    <% if @case.errors.any? %>
+      <ul>
+      <% @case.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
     <% end %>
-    </ul>
+    <label>Case ID</label>
+    <%= f.text_field :id %>
+    <label>Advocate ID</label>
+    <%= f.select :advocate_id, @advocate.collect { |advocate| [ advocate.user_id, advocate.id] } %>
+    <label>State</label>
+    <%= f.select :state_id, @states.collect { |state| [ state.name, state.id] } %>
+    <%= f.submit "Submit" %>
   <% end %>
-  <label>Case ID</label>
-  <%= f.text_field :id %>
-  <label>Advocate ID</label>
-  <%= f.select :advocate_id, @advocate.collect { |advocate| [ advocate.user_id, advocate.id] } %>
-  <label>State</label>
-  <%= f.select :state_id, @states.collect { |state| [ state.name, state.id] } %>
-  <%= f.submit "Submit" %>
-<% end %>
-
+</div>

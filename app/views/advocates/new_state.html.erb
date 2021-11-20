@@ -1,8 +1,9 @@
-<%= form_for @advocate_state, :url => { :controller => "advocates", :action => "state_creation" } do |f| %>
-  <label>Advocate ID</label>
-  <%= f.select :advocate_id, @advocate.collect { |advocate| [ advocate.user_id, advocate.id] } %>
-  <label>State</label>
-  <%= f.select :state_id, @states.collect { |state| [ state.name, state.id] } %>
-  <%= f.submit "Submit" %>
-<% end %>
-
+<div class="container">
+  <%= form_for @advocate_state, :url => { :controller => "advocates", :action => "state_creation" } do |f| %>
+    <label>Advocate ID</label>
+    <%= f.select :advocate_id, @advocate.collect { |advocate| [ advocate.user_id, advocate.id] } %>
+    <label>State</label>
+    <%= f.select :state_id, @states.collect { |state| [ state.name, state.id] } %>
+    <%= f.submit "Submit" %>
+  <% end %>
+</div>
