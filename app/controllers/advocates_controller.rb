@@ -55,7 +55,7 @@ class AdvocatesController < ApplicationController
  	end
 
  	def case_creation
- 		if not check_if_rejected 
+ 		unless check_if_rejected 
 			flash[:alert] = "Case is rejected."
  			redirect_to new_case_path
  		else 
@@ -78,12 +78,8 @@ class AdvocatesController < ApplicationController
 	 	end
  	end
  	def check_if_rejected
- 		@case = Case.find_by_id(case_params[:id])
- 		if @case.present?
- 			Case.find_by_id(case_params[:id]).is_active
- 		else 
- 			true
- 		end
+ 		case = Case.find_by_id(case_params[:id])
+ 		case.present? ? case.is_active : true
  	end
 
 	def new_state
