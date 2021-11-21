@@ -1,20 +1,19 @@
 class AdvocatesController < ApplicationController
+	before_action :initialize_user, only: [:new_senior, :new_junior]
+	before_action :define_user_params, only: [:senior_creation, :junior_creation]
+
 	def index
  		@advocates = Advocate.all
  	end
 
- 	def new_senior
- 		@user = User.new
- 	end
+ 	def new_senior;end
 
  	def new_junior
- 		@user = User.new
  		@all_seniors = Role.find_by_name('Senior')&.advocates
  	end
 
  	def senior_creation
  		begin
-	 		@user = User.new(user_params)
 	 		if @user.save 	
 		 		advocate = @user.build_advocate(role_id: Role.find_by_name('Senior')&.id)
 		 		advocate.save
@@ -31,7 +30,6 @@ class AdvocatesController < ApplicationController
 
  	def junior_creation
  		begin
-	 		@user = User.new(user_params)
 	 		if @user.save 	
 		 		advocate = @user.build_advocate(role_id: Role.find_by_name('Junior')&.id)
 		 		advocate.save	
@@ -126,6 +124,12 @@ class AdvocatesController < ApplicationController
  	def advocate_state_params
  		params.require(:advocate_state).permit(:state_id, :advocate_id)
  	end
-
+			
+	def initialize_user
+		@user = User.new
+	end
+	def define_user_params
+		@user = User.new(user_params)
+	end
 
 end
