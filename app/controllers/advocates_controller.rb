@@ -71,8 +71,8 @@ class AdvocatesController < ApplicationController
 	 	end
  	end
  	def check_if_rejected
- 		case = Case.find_by_id(case_params[:id])
- 		case.present? ? case.is_active : true
+ 		case_data = Case.find_by_id(case_params[:id])
+ 		case_data.present? ? case_data.is_active : true
  	end
 
 	def new_state
@@ -126,6 +126,6 @@ class AdvocatesController < ApplicationController
 
 	def load_states_advocates
 		@states = State.all
- 		@advocate = Advocate.all
+ 		@advocates = Advocate.all
 	end
 end

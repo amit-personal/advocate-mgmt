@@ -10,7 +10,7 @@
     <label>Case ID</label>
     <%= f.text_field :id %>
     <label>Advocate ID</label>
-    <%= f.select :advocate_id, @advocate.collect { |advocate| [ advocate.user_id, advocate.id] } %>
+    <%= f.select :advocate_id, @advocates.collect { |advocate| [ advocate.user_id, advocate.id] } %>
     <label>State</label>
     <%= f.select :state_id, @states.collect { |state| [ state.name, state.id] } %>
     <%= f.submit "Submit" %>
