@@ -1,10 +1,9 @@
 class AdvocatesController < ApplicationController
 	before_action :initialize_user, only: [:new_senior, :new_junior]
 	before_action :define_user_params, only: [:senior_creation, :junior_creation]
+	before_action :load_states_advocates, only: [:index, :new_case, :case_creation, :new_state, :state_creation]
 
-	def index
- 		@advocates = Advocate.all
- 	end
+	def index;end
 
  	def new_senior;end
 
@@ -48,8 +47,6 @@ class AdvocatesController < ApplicationController
 
  	def new_case
  		@case = Case.new
- 		@states = State.all
- 		@advocate = Advocate.all
  	end
 
  	def case_creation
@@ -63,13 +60,9 @@ class AdvocatesController < ApplicationController
 	 				flash[:success] = "Case added"
 	 				redirect_to root_path
 				else
-					@states = State.all
-	 				@advocate = Advocate.all
 	 				render 'new_case'
 	 			end
 	 		rescue StandardError => e
-	 			@states = State.all
-	 			@advocate = Advocate.all
 	 			flash[:alert] = "Case is not created."
 	 			render 'new_case'
 	 		end
@@ -82,8 +75,6 @@ class AdvocatesController < ApplicationController
 
 	def new_state
 		@advocate_state = AdvocateState.new
- 		@states = State.all
- 		@advocate = Advocate.all
  	end
 
  	def state_creation
@@ -93,13 +84,9 @@ class AdvocatesController < ApplicationController
  				flash[:success] = "State updated"
  				redirect_to root_path
 			else
-				@states = State.all
- 				@advocate = Advocate.all
  				render 'new_state'
  			end
  		rescue StandardError => e
- 			@states = State.all
- 			@advocate = Advocate.all
  			flash[:alert] = "State is not update."
  			render 'new_state'
  		end
@@ -128,8 +115,13 @@ class AdvocatesController < ApplicationController
 	def initialize_user
 		@user = User.new
 	end
+
 	def define_user_params
 		@user = User.new(user_params)
 	end
 
+	def load_states_advocates
+		@states = State.all
+ 		@advocate = Advocate.all
+	end
 end
