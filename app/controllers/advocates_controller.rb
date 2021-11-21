@@ -9,16 +9,15 @@ class AdvocatesController < ApplicationController
 
  	def new_junior
  		@user = User.new
- 		@all_seniors = Role.find_by_name('Senior').advocates
+ 		@all_seniors = Role.find_by_name('Senior')&.advocates
  	end
 
  	def senior_creation
  		begin
-	 		@senior_role = Role.find_by_name('Senior')
 	 		@user = User.new(user_params)
 	 		if @user.save 	
-		 		@advocate = @user.build_advocate(role_id: @senior_role.id)
-		 		@advocate.save
+		 		advocate = @user.build_advocate(role_id: Role.find_by_name('Senior')&.id)
+		 		advocate.save
  				flash[:success] = "Advocate added"
  				redirect_to root_path
 		 	else
@@ -32,14 +31,12 @@ class AdvocatesController < ApplicationController
 
  	def junior_creation
  		begin
-	 		@junior_role = Role.find_by_name('Junior')
 	 		@user = User.new(user_params)
 	 		if @user.save 	
-		 		@advocate = @user.build_advocate(role_id: @junior_role.id)
-		 		@advocate.save	
-		 		@advocate_mapping = @user.build_senior(senior_id: params[:user][:senior_advocate])
-		 		binding.pry
-		 		@advocate_mapping.save
+		 		advocate = @user.build_advocate(role_id: Role.find_by_name('Junior')&.id)
+		 		advocate.save	
+		 		advocate_mapping = @user.build_senior(senior_id: params[:user][:senior_advocate])
+		 		advocate_mapping.save
  				flash[:success] = "Advocate added"
  				redirect_to root_path
 		 	else
@@ -97,8 +94,8 @@ class AdvocatesController < ApplicationController
 
  	def state_creation
  		begin
- 			@state = AdvocateState.new(advocate_state_params)
- 			if @state.save
+ 			state = AdvocateState.new(advocate_state_params)
+ 			if state.save
  				flash[:success] = "State updated"
  				redirect_to root_path
 			else
